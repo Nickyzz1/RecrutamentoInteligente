@@ -1,3 +1,11 @@
 back - C# dotnet
 banco de dados - MySql
 front: react/next/tailwind
+
+Figma: https://www.figma.com/design/TFNWAZmfDPo7Wr2J9BR55j/Recrutamento-Inteligente?fuid=1359850599857981488
+RF e RNF: https://docs.google.com/spreadsheets/d/1MS26F0S9ziAYxlH60oFPds_e81w8mi6gK-4TNjd7nbQ/edit?usp=sharing
+Word: https://docs.google.com/document/d/1u203y5dCyzxetudbowGLumhggw_mrLm6J7pkUGj7MoU/edit?usp=sharing
+prototipo: https://lovable.dev/projects/ed952718-6efb-480d-a9f7-22a62d4d7a8c
+
+Email: admin@example.com
+Senha: password
