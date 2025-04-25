@@ -1,3 +1,6 @@
 dotnet tool install --global dotnet-ef
 dotnet ef database update
 dotnet new webapi
+dotnet add package Microsoft.EntityFrameworkCore // ORM, podemos gerar sql sem escrever em sql
+dotnet add package Microsoft.EntityFrameworkCore.Tools // permite fazer as migrations
+dotnet add package MySql.EntityFrameworkCore // MySql.EntityFrameworkCore adiciona suporte ao Microsoft Entity Framework Core (EF Core) 8 e 9.
