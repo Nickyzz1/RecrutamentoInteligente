@@ -1,0 +1,3 @@
+back - C# dotnet
+banco de dados - MySql
+front: react/next/tailwind
