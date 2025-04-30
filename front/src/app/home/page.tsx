@@ -1,5 +1,6 @@
 import {HeaderNotLogged} from "@/app/components/header/page";
 import { Provider } from "@/components/ui/provider"
+import { ROUTES } from "@/constants/routes"
 
 export default function Home() {
   return (
