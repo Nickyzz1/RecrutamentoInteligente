@@ -1,8 +1,10 @@
+using Api.Domain.Models;
+using ApiCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Core;
 
-public class DaredeDbContext : DbContext
+public partial class DaredeDbContext : DbContext
 {
     public DaredeDbContext() {}
 
@@ -10,13 +12,10 @@ public class DaredeDbContext : DbContext
     : base(options)
     {}
 
-    /*
-    public virtual DbSet<Entity> EntityList { get; set; }
-    */
+    public virtual DbSet<User> UserList {get; set;}
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*
-        modelBuilder.ApplyConfiguration(new EntityClassMap());
-        */
+        modelBuilder.ApplyConfiguration(new UserClassMap());
     }
 }
