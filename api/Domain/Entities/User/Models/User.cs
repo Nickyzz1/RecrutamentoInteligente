@@ -9,4 +9,6 @@ public class User : IEntity
     public required string Password {get; set;}
     public string? Address {get; set;}
     public required bool Admin {get; set;} = false;
+    public Resume? Resume {get; set;}
+    public ICollection<Phone> Phones {get; set;} = [];
 }

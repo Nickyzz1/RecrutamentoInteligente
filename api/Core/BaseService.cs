@@ -134,15 +134,15 @@ public class BaseService<T>(BaseRepository<T> repository) : IService<T>
             throw new Exception("Object does not exists");
         }
 
-        Repository.Remove( obj );
-        Repository.Save( );
+        Repository.Remove(obj);
+        Repository.Save();
     }
 
     public virtual async Task DeleteAsync(int id)
     {
         var obj = await Repository
             .GetAllNoTracking()
-            .SingleOrDefaultAsync( item => item.Id == id );
+            .SingleOrDefaultAsync(item => item.Id == id);
 
         if(obj == null)
         {

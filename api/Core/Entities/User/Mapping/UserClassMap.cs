@@ -2,7 +2,7 @@ using Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ApiCore.Mapping;
+namespace Api.Core.Mapping;
 
 public class UserClassMap : IEntityTypeConfiguration<User>
 {
@@ -34,5 +34,11 @@ public class UserClassMap : IEntityTypeConfiguration<User>
 
         builder.Property(user => user.Admin)
             .HasColumnName("admin");
+
+        builder.HasMany(user => user.Phones)
+            .WithOne(phone => phone.User);
+
+        builder.HasOne(user => user.Resume)
+            .WithOne(resume => resume.User);
     }
 }
