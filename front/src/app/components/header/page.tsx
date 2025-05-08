@@ -13,7 +13,7 @@ export const HeaderNotLogged = () => {
 
             <div className="flex w-full justify-end gap-2">
                 <Button variant="outlined" href={ROUTES.login}>Entrar</Button>
-                <Button variant="contained" sx={{ color: 'white', backgroundColor: '#036D3C' }}>Cadastrar</Button>
+                <Button variant="contained" href={ROUTES.register} sx={{ color: 'white', backgroundColor: '#036D3C' }}>Cadastrar</Button>
             </div>
         </div>
         </>
