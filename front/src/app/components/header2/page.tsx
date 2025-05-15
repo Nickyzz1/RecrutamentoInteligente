@@ -19,7 +19,7 @@ export const HeaderLogged = () => {
                 <a href="https://images.steamusercontent.com/ugc/2077889393106802801/509548242CA42145059BDA2532B670FCDAD3C050/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" className="text-black font-semibold">Início</a>
                 <a href="https://images.steamusercontent.com/ugc/2077889393106802801/509548242CA42145059BDA2532B670FCDAD3C050/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" className="text-black font-semibold">Minhas Candidaturas</a>
                 <a href="https://images.steamusercontent.com/ugc/2077889393106802801/509548242CA42145059BDA2532B670FCDAD3C050/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"  className="flex flex-row items-center gap-2">
-                    <Image src={user} alt="user" className="w-4"></Image>
+                    <Image src={user} alt="user" className="w-4 object-contain"></Image>
                     <p className="text-black font-semibold">Perfil</p>
                 </a>
             </div>

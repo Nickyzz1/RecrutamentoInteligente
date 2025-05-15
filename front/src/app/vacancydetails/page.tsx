@@ -17,12 +17,12 @@ export default function Start() {
                 <div className="flex flex-col ">
                     <div className="p-8 px-16 flex flex-col gap-6">
                         <div className="flex flex-row gap-4 items-center">
-                            <Image src={back} alt="seta" className="scale-75"></Image>
-                            <p className="font-semibold text-gray-500">Voltar</p>
+                            <Image src={back} alt="seta" className="scale-75 object-contain"></Image>
+                            <p className="font-semibold text-[#909192]">Voltar</p>
                         </div>
                         <div className="flex flex-col gap-4">
                             <p className="text-[#036D3C] font-bold text-3xl">Desenvolvedor react senior</p>
-                            <p className="text-gray-500 font-semibold">Darede à nuvem | Curitiba, PR</p>
+                            <p className="text-[#909192] font-semibold">Darede à nuvem | Curitiba, PR</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             <div className="bg-[#F1F5F9] border-gray-200 border-[1px] rounded-2xl flex flex-row w-fit p-2.5 gap-2">
@@ -76,29 +76,29 @@ export default function Start() {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <Link href={ROUTES.start}>Candidatar-se</Link>
-                    <div>
-                        <p>Informações da vaga</p>
-                        <div>
-                            <p>Data de publicação</p>
+                <div className="flex flex-col items-center w-1/2 pt-24 gap-8">
+                    <Link href={ROUTES.sendcandidature} className="bg-[#036D3C] text-white p-2 w-1/3 flex justify-center items-center rounded-xl">Candidatar-se</Link>
+                    <div className="flex flex-col bg-white border-[1px] border-gray-200 w-1/2 p-8 px-20 gap-4  rounded-2xl">
+                        <p className="font-semibold text-xl">Informações da vaga</p>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-[#949494] font-medium">Data de publicação</p>
                             <p>15 de janeiro de 2023</p>
                         </div>
-                        <div>
-                            <p>Local</p>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-[#949494] font-medium">Local</p>
                             <p>São Paulo, SP</p>
                         </div>
-                        <div>
-                            <p>Empresa</p>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-[#949494] font-medium">Empresa</p>
                             <p>Darede à núvem</p>
                         </div>
-                        <div>
-                            <p>Habilidades relevantes</p>
-                            <div>
-                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] w-fit">Git</p>
-                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] w-fit">Git</p>
-                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] w-fit">Git</p>
-                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] w-fit">Git</p>
+                        <div className="flex flex-col gap-2">
+                            <p className="text-[#949494] font-medium">Habilidades relevantes</p>
+                            <div className="flex flex-wrap gap-2">
+                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] font-semibold w-fit">Git</p>
+                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] font-semibold w-fit">Git</p>
+                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] font-semibold w-fit">Git</p>
+                                <p className="border-[#036D3C] rounded-2xl px-3 border-[1px] font-semibold w-fit">Git</p>
                             </div>
                         </div>
                     </div>
