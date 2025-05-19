@@ -12,8 +12,8 @@ export default function Home() {
 
           <div className="flex flex-col mt-14 items-center w-full">
             <div className="flex">
-              <h1 className="text-[#036D3C] font-bold text-3xl">Encontre sua</h1>
-              <h1 className="text-[#F5991D] font-bold text-3xl mx-2"> próxima</h1>
+              <h1 className="text-[#036D3C] font-bold text-xl">Encontre sua</h1>
+              <h1 className="text-[#F5991D] font-bold text-xl mx-2"> próxima</h1>
             </div>
             <h1 className="text-[#F5991D] font-bold text-3xl">oportunidade</h1>
           </div>
