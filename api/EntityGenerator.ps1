@@ -5,14 +5,18 @@ param(
     [switch]$GenerateExtensions,
     [switch]$UseDTO,
     [switch]$MapFK,
-    [switch]$SkipMap
+    [switch]$SkipMap,
+    [switch]$ImplementAll
 )
 
 $Config = Get-Content .\config.cfg
 
-$BuiltInTypes = @("bool", "byte", "sbyte", "char", "decimal", "double", "float", "int", "uint", "nint", "nuint", "long", "ulong", "short", "ushort", "string")
+$EntityNameLower = ""
+
+$BuiltInTypes = @("bool", "byte", "sbyte", "char", "decimal", "double", "float", "int", "uint", "nint", "nuint", "long", "ulong", "short", "ushort", "string", "DateTime")
 
 $Variables = @{}
+
 
 function ToSnake
 {
@@ -38,7 +42,7 @@ function Find-Enum
     param(
         [Parameter(Mandatory=$true)][string]$Name
     )
-    $items = Get-ChildItem -Path "$($Variables["TargetRootPath"])\Domain\Entities" -Recurse | Where-Object {!$PsIsContainer -and $_.Name -eq "$($Name).cs"}
+    $items = Get-ChildItem -Path "$($Variables["TargetRootPath"])\Domain\Entities\*\Enums" -Recurse | Where-Object {!$PsIsContainer -and $_.Name -eq "$($Name).cs"}
 
     if($items.Length -ge 1)
     {
@@ -47,109 +51,7 @@ function Find-Enum
     return $false
 }
 
-foreach($Option in $Config)
-{
-    if($Option -eq "")
-    {
-        continue
-    }
-    $x = $Option.Split("=")
-    $Variables.Add($x[0], $x[1])
-}
-
-if($PSBoundParameters.ContainsKey("GenerateExtensions"))
-{
-    New-Item -Path "$($Variables["TargetRootPath"])\Configuration\ConfigureRepositoriesExtension.cs" -ItemType File -Force
-    New-Item -Path "$($Variables["TargetRootPath"])\Configuration\ConfigureServicesExtension.cs" -ItemType File -Force
-
-    Write-Output @"
-using Api.Core;
-using Api.Core.Repositories;
-using Api.Domain.Models;
-using Api.Domain.Repositories;
-
-namespace Api.Configuration;
-
-//Do not erase comments, as they are used by the generation script
-public static partial class ServiceCollectionExtension
-{
-    public static IServiceCollection ConfigureEntityRepositories(this IServiceCollection services)
-    {
-        //Repositories
-        return services;
-    }
-}
-"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Configuration\ConfigureRepositoriesExtension.cs"
-
-    Write-Output @"
-using Api.Core;
-using Api.Core.Services;
-using Api.Domain.Models;
-using Api.Domain.Services;
-
-namespace Api.Configuration;
-
-//Do not erase comments, as they are used by the generation script
-public static partial class ServiceCollectionExtension
-{
-    public static IServiceCollection ConfigureEntityServices(this IServiceCollection services)
-    {
-        //Services
-        return services;
-    }
-}
-"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Configuration\ConfigureServicesExtension.cs"
-}
-
-if($PSBoundParameters.ContainsKey("CreateDbContext"))
-{
-
-    if($EntityName -eq ""){$EntityName = $Variables["DbContext"]}
-    New-Item -Path "$($Variables["TargetRootPath"])\Core\$($EntityName).cs" -ItemType File -Force
-
-    Write-Output @"
-using Api.Domain.Models;
-using Api.Core.Mapping;
-using Microsoft.EntityFrameworkCore;
-
-namespace Api.Core;
-
-//Do not erase comments, as they are used by the generation script
-public class $($EntityName) : DbContext
-{
-    public $($EntityName)() {}
-
-    public $($EntityName)(DbContextOptions<$($EntityName)> options)
-    : base(options)
-    {}
-
-    //DbSets
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        //Mapping
-    }
-}
-"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Core\$($EntityName).cs"
-
-    $Variables["DbContext"] = $EntityName
-
-    $ConfigOut = ""
-    foreach($item in $Variables.Keys)
-    {
-        $ConfigOut += "$($item)=$($Variables[$item])`n"
-    }
-
-    Write-Output $ConfigOut.TrimEnd("`r", "`n") | Out-File ".\config.cfg"
-
-    return
-}
-
-if($EntityName -eq ""){return}
-
-$EntityNameLower = ToSnake $EntityName
-
-if($PSBoundParameters.ContainsKey("ImplementEntity"))
+function Implement-Entity
 {
     $Req = [System.Collections.ArrayList]::new()
     $Type = [System.Collections.ArrayList]::new()
@@ -252,7 +154,7 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
             }
         }elseif(Test-Path "$($Variables["TargetRootPath"])\Domain\Entities\$($TrueType)\Models\$($TrueType).cs")
         {
-            if($PSBoundParameters.ContainsKey("UseDTO"))
+            if($UseDTO)
             {
                 if($IsList)
                 {
@@ -338,14 +240,14 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
             $x += "`r`n            obj.$($VarName[$i]),"
         }elseif(Test-Path "$($Variables["TargetRootPath"])\Domain\Entities\$($TrueType)\Models\$($TrueType).cs")
         {
-            if($PSBoundParameters.ContainsKey("UseDTO"))
+            if($UseDTO)
             {
                 if($IsList)
                 {
                     $x += "`r`n            obj.$($VarName[$i]).Select(item => $($TrueType)DTO.Map(item)),"
                 }else
                 {
-                    $x += "`r`n            $($TrueType)DTO.Map(obj.$($VarName[$i]))"
+                    $x += "`r`n            $($TrueType)DTO.Map(obj.$($VarName[$i])),"
                 }
             }else
             {
@@ -421,6 +323,7 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
             if($IsList)
             {
                 $x += "`r`n    [Required]`r`n    public required IEnumerable<$($TrueType)> $($VarName[$i])"
+                $x += " {get;set;} = [];"
             }else
             {
                 if($Req[$i])
@@ -430,13 +333,14 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
                 {
                     $x += "`r`n    public $($TrueType)? $($VarName[$i])"
                 }
+                $x += " {get;set;}"
             }
-            $x += " {get;set;}"
         }elseif(Test-Path "$($Variables["TargetRootPath"])\Domain\Entities\$($TrueType)\Models\$($TrueType).cs")
         {
             if($IsList)
             {
                 $x += "`r`n    [Required]`r`n    public required IEnumerable<int> $($VarName[$i])"
+                $x += " {get;set;} = [];"
             }else
             {
                 if($Req[$i])
@@ -446,8 +350,8 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
                 {
                     $x += "`r`n    public int? $($VarName[$i])Id"
                 }
+                $x += " {get;set;}"
             }
-            $x += " {get;set;}"
         }
     }
 
@@ -508,12 +412,12 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
             if($IsList)
             {
                 $x += "`r`n    public IEnumerable<$($TrueType)> $($VarName[$i])"
+                $x += " {get;set;} = [];"
             }else
             {
                 $x += "`r`n    public $($TrueType)? $($VarName[$i])"
+                $x += " {get;set;}"
             }
-
-            $x += " {get;set;}"
 
             if($i -ge $VarName.Count - 1)
             {
@@ -524,12 +428,12 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
             if($IsList)
             {
                 $x += "`r`n    public IEnumerable<int> $($VarName[$i])"
+                $x += " {get;set;} = [];"
             }else
             {
                 $x += "`r`n    public int? $($VarName[$i])Id"
+                $x += " {get;set;}"
             }
-
-            $x += " {get;set;}"
 
             if($i -ge $VarName.Count - 1)
             {
@@ -542,7 +446,7 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
 
     Write-Output $File.TrimEnd("`r", "`n") | Out-File -FilePath "$($Variables["TargetRootPath"])\Domain\Entities\$($EntityName)\Models\$($EntityName)Payloads.cs"
     
-    if($PSBoundParameters.ContainsKey("SkipMap")){return}
+    if($SkipMap){return}
 
     $File = Get-Content "$($Variables["TargetRootPath"])\Core\Entities\$($EntityName)\Mapping\$($EntityName)ClassMap.cs" -Raw
 
@@ -600,9 +504,9 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
 
     $File = $x + "`r`n    " + $File.Substring($start + 1)
 
-    if($PSBoundParameters.ContainsKey("MapFK"))
+    if($MapFK)
     {
-        $x = ".HasName(`"PK_____$($EntityName)`");"
+        $x = ".HasColumnName(`"is_active`");"
 
         $FKStart = $File.IndexOf($x) + $x.Length
         $File = $File.Remove($FKStart, $a - ($FKStart + 1))
@@ -653,9 +557,129 @@ if($PSBoundParameters.ContainsKey("ImplementEntity"))
     }
 
     Write-Output $File.TrimEnd("`r", "`n") | Out-File -FilePath "$($Variables["TargetRootPath"])\Core\Entities\$($EntityName)\Mapping\$($EntityName)ClassMap.cs"
+}
+
+foreach($Option in $Config)
+{
+    if($Option -eq "")
+    {
+        continue
+    }
+    $x = $Option.Split("=")
+    $Variables.Add($x[0], $x[1])
+}
+
+if($GenerateExtensions)
+{
+    New-Item -Path "$($Variables["TargetRootPath"])\Configuration\ConfigureRepositoriesExtension.cs" -ItemType File -Force
+    New-Item -Path "$($Variables["TargetRootPath"])\Configuration\ConfigureServicesExtension.cs" -ItemType File -Force
+
+    Write-Output @"
+using Api.Core;
+using Api.Core.Repositories;
+using Api.Domain.Models;
+using Api.Domain.Repositories;
+
+namespace Api.Configuration;
+
+//Do not erase comments, as they are used by the generation script
+public static partial class ServiceCollectionExtension
+{
+    public static IServiceCollection ConfigureEntityRepositories(this IServiceCollection services)
+    {
+        //Repositories
+        return services;
+    }
+}
+"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Configuration\ConfigureRepositoriesExtension.cs"
+
+    Write-Output @"
+using Api.Core;
+using Api.Core.Services;
+using Api.Domain.Models;
+using Api.Domain.Services;
+
+namespace Api.Configuration;
+
+//Do not erase comments, as they are used by the generation script
+public static partial class ServiceCollectionExtension
+{
+    public static IServiceCollection ConfigureEntityServices(this IServiceCollection services)
+    {
+        //Services
+        return services;
+    }
+}
+"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Configuration\ConfigureServicesExtension.cs"
+}
+
+if($CreateDbContext)
+{
+
+    if($EntityName -eq ""){$EntityName = $Variables["DbContext"]}
+    New-Item -Path "$($Variables["TargetRootPath"])\Core\$($EntityName).cs" -ItemType File -Force
+
+    Write-Output @"
+using Api.Domain.Models;
+using Api.Core.Mapping;
+using Microsoft.EntityFrameworkCore;
+
+namespace Api.Core;
+
+//Do not erase comments, as they are used by the generation script
+public class $($EntityName) : DbContext
+{
+    public $($EntityName)() {}
+
+    public $($EntityName)(DbContextOptions<$($EntityName)> options)
+    : base(options)
+    {}
+
+    //DbSets
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        //Mapping
+    }
+}
+"@ | Out-File -FilePath "$($Variables["TargetRootPath"])\Core\$($EntityName).cs"
+
+    $Variables["DbContext"] = $EntityName
+
+    $ConfigOut = ""
+    foreach($item in $Variables.Keys)
+    {
+        $ConfigOut += "$($item)=$($Variables[$item])`n"
+    }
+
+    Write-Output $ConfigOut.TrimEnd("`r", "`n") | Out-File ".\config.cfg"
 
     return
 }
+
+if($ImplementAll)
+{
+    $Entities = Get-ChildItem -Path "$($Variables["TargetRootPath"])\Domain\Entities" -Directory | Select-Object -ExpandProperty Name
+
+    foreach($Ent in $Entities)
+    {
+        $EntityName = $Ent
+        $EntityNameLower = ToSnake $EntityName
+        Implement-Entity
+    }
+    return
+}
+
+if($EntityName -eq ""){return}
+
+$EntityNameLower = ToSnake $EntityName
+
+if($ImplementEntity)
+{
+    Implement-Entity
+    return
+}
+
 
 New-Item -Path "$($Variables["TargetRootPath"])\Domain\Entities\$($EntityName)\Models\$($EntityName).cs" -ItemType File -Force
 New-Item -Path "$($Variables["TargetRootPath"])\Domain\Entities\$($EntityName)\Models\$($EntityName)DTO.cs" -ItemType File -Force
@@ -742,6 +766,9 @@ public class $($EntityName)ClassMap : IEntityTypeConfiguration<$($EntityName)>
     {
         builder.HasKey($($EntityNameLower) => $($EntityNameLower).Id)
             .HasName("PK_____$($EntityName)");
+
+        builder.Property($($EntityNameLower) => $($EntityNameLower).IsActive)
+            .HasColumnName("is_active");
 
         builder.ToTable("tb_$($EntityNameLower)");
     }
