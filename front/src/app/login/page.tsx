@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Login() {
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-[#036D3C]">
+    <div className="flex flex-col h-screen w-screen bg-[#036D3C]">
       <div className="bg-white lg:w-4/6 fixed h-screen flex flex-col items-center w-11/12 sm:w-5/6 right-0 rounded-tl-[500px] md:rounded-tl-[600px] lg:rounded-tl-[700px]  flex-1/4 justify-start md:p-32 p-3 gap-28">
         <div className="flex flex-col items-center gap-4">
           <Image width={1000} height={1000} priority src={logo} alt="Logo" className="flex flex-col md:w-80 w-60 mt-50 sm:mt-60 md:mt-10  lg:w-auto" />

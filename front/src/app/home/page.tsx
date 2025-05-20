@@ -4,7 +4,7 @@ import { ROUTES } from "@/constants/routes"
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-[#F9FAFB]">
+    <div className="flex flex-col w-screen bg-[#F9FAFB]">
       <HeaderNotLogged/>
       <div className="flex items-center justify-center" >
 

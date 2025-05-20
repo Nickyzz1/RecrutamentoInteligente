@@ -2,6 +2,7 @@
 import { Button, Drawer } from "@mui/material";
 import React from 'react';
 import { ROUTES } from "@/constants/routes"
+import CloseIcon from '@mui/icons-material/Close';
 
 import Image from "next/image";
 import user from "@/assets/user.png"
@@ -19,7 +20,7 @@ export const HeaderLogged = () => {
 
     return(
         <>
-        <div className="flex w-screen h-15 shadow-md items-center fixed top-0 px-6 bg-[#ffffff]">
+        <div className="flex w-screen p-5 shadow-md items-center px-6 bg-[#ffffff]">
             <h1 className="text-[#036D3C] font-bold sm:text-xl pl-2">Darede</h1>
             <h1 className="text-[#F5991D] font-bold sm:text-xl">Recruit</h1>
 
@@ -32,17 +33,22 @@ export const HeaderLogged = () => {
                 </a>
             </div>
 
-            <Image width={20} height={10} alt="menu" src={menu} onClick={toggleDrawer(true)}></Image>
-      <Drawer className="opacity-85" open={open} onClose={toggleDrawer(false)}>
-        <p className=" text-xl self-end p-2 px-4 font-semibold hover:text-green-700 hover:scale-120 transition delay-150 duration-150 ease-in-out cursor-pointer" onClick={toggleDrawer(false)}>X</p>
-        <div className="flex gap-2 flex-col h-screen w-screen bg-white items-center justify-center">
-          {DrawerList.map(item =>
-            (
-              <div className="text-shadow-green-700 text-shadow-2xl text-lg font-semibold hover:text-green-700 hover:scale-120 transition duration-150 ease-in-out cursor-pointer">{item}</div>
-            )
-          )}
-        </div>
-      </Drawer>
+            <Image width={20} height={10} alt="menu" src={menu} onClick={toggleDrawer(true)} className="sm:hidden"></Image>
+            <Drawer className="" open={open} onClose={toggleDrawer(false)}>
+              <div className="bg-[#F9FAFB] h-full">
+                <div className="flex w-full flex-row-reverse">
+                  <CloseIcon sx={{ color: "#036d3c", margin: "4px"}}/>
+                </div>
+
+                <div className="flex gap-2 flex-col items-start py-4 px-4">
+                  {DrawerList.map((item, index) =>
+                    (
+                      <div key={index} className="text-shadow-green-700 hover:text-shadow-xl text-lg font-semibold hover:text-green-700 hover:scale-110 transition duration-180 ease-in-out cursor-pointer">{item}</div>
+                    )
+                  )}
+                </div>
+              </div>
+            </Drawer>
 
         </div>
         </>

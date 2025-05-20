@@ -17,11 +17,11 @@ export const Card:  React.FC<CardProps> = ({title, status, adress, description, 
 
     return (
         <>
-            <div className="shadow-[5px_5px_10px_0px_rgba(0,_0,_0,_0.2)] bg-white p-8 w-[310px] max-w-[500px] flex flex-col gap-5 ">
+            <div className="shadow-[5px_5px_10px_0px_rgba(0,_0,_0,_0.2)] bg-white p-8 w-full flex flex-col gap-5 ">
                 <div className="flex flex-col gap-1">
-                    <div className="flex flex-col sm:flex-row justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                         <p className="text-[#036D3C] text-xl font-semibold">{title}</p>
-                        <button className="bg-[#F5991D]  px-4 rounded-2xl text-white font-medium">{status}</button>
+                        <button className="bg-[#F5991D] px-4 hover:shadow-amber-400 hover:shadow rounded-2xl text-white font-medium">{status}</button>
                     </div>
                     <p className="text-[#949494] text-xs">Darede à nuvem | {adress}</p>
                 </div>
