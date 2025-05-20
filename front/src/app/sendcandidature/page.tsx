@@ -1,13 +1,11 @@
-import { HeaderLogged } from "@/app/components/header2/page";
-import { Card } from "@/app/components/card/page";
-import { Provider } from "@/components/ui/provider"
-import { ROUTES } from "@/constants/routes"
 import Image from "next/image";
+import Link from "next/link";
 
-import lupa from "@/assets/lupa.png"
+// imports internos
+import { ROUTES } from "@/constants/routes"
+import { HeaderLogged } from "@/components/header2/page";
 import seta from "@/assets/next.png"
 import back from "@/assets/back.png"
-import Link from "next/link";
 
 export default function Start() {
     return (

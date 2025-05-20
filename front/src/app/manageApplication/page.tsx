@@ -1,5 +1,6 @@
 "use client"
-import {HeaderLogged} from "@/app/components/header2/page"
+// imports internos
+import {HeaderLogged} from "@/components/header2/page"
 
 const manageAplication = () => {
 

@@ -1,14 +1,15 @@
-import { HeaderLogged } from "@/app/components/header2/page";
-import { Card } from "@/app/components/card/page";
 import Image from "next/image";
 
+// imports internos
+import { HeaderLogged } from "@/components/header2/page";
+import { Card } from "@/components/card/page";
 import lupa from "@/assets/lupa.png"
 
 export default function Start() {
     return (
-        <div className="flex flex-col items-center justify-center bg-[#F9FAFB]">
+        <div className="flex max-w-screen overflow-hidden flex-col items-center justify-center bg-[#F9FAFB]">
             <HeaderLogged />
-            <div className="flex items-center justify-center w-full md:p-15 p-5">
+            <div className="flex  items-center justify-center w-full md:p-15 p-5">
 
                 <div className="flex flex-col items-center w-full gap-2">
 
@@ -27,12 +28,12 @@ export default function Start() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 flex-wrap gap-10 justify-center py-6">
-                        <Card skills={["bnsa", "sha", "saqaaaaaaa ve muito texto loudsao"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
-                        <Card skills={["sdsaa", "sfdxda", "liusa", "12"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
-                        <Card skills={["sfdsa", "ggsggha", "saqaaaaaaa"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
-                        <Card skills={["sgra", "slia", "sa", "12"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
-                        <Card skills={["sda", "sjkua", "saqaaaaaaa"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
-                        <Card skills={["sfda", "sgra", "salkj", "12"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Comunicação com equipes"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Iniciativa", "Cooperatividade"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Comunicação com equipes"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Iniciativa", "Cooperatividade"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Iniciativa"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
+                        <Card skills={["Comunicação", "Liderança", "Iniciativa", "Cooperatividade"]} date={new Date()} title={"Desenvolvedor React senior"} status={"Ativa"} adress={"Curitiba, PR"} description={"Estamos buscando um desenvolvedor React experiente para se juntar ao nosso time de tecnologia. Você trabalhará em projetos legais."}></Card>
                     </div>
                 </div>
 
