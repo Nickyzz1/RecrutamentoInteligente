@@ -27,10 +27,6 @@ export default function Start() {
                                 <Image src={seta} alt="seta" className=" object-contain w-6"></Image>
                             </div>
                         </div>
-                        <div className="flex flex-row gap-3 items-center">
-                            <input type="checkbox"></input>
-                            <p className="font-semibold">Usar currículo atual</p>
-                        </div>
                         <div className="flex flex-col gap-2">
                             <p className="text-[#909192]">Descreva sua motivação</p>
                             <textarea className="bg-white border-[1px] border-gray-200 p-5 px-6 h-60 rounded-2xl resize-none" />
