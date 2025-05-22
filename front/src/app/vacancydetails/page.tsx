@@ -59,10 +59,10 @@ export default function VacancyDetails() {
 
                             <div className="flex flex-col gap-5">
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                                    <Button variant="outlined" onClick={() => setPage(1)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Descrição</Button>
-                                    <Button variant="outlined" onClick={() => setPage(2)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Atribuições</Button>
-                                    <Button variant="outlined" onClick={() => setPage(3)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Requisitos</Button>
-                                    <Button variant="outlined" onClick={() => setPage(4)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Benefícios</Button>
+                                    <Button variant="outlined" onClick={() => setPage(1)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Descrição</Button>
+                                    <Button variant="outlined" onClick={() => setPage(2)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Atribuições</Button>
+                                    <Button variant="outlined" onClick={() => setPage(3)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Requisitos</Button>
+                                    <Button variant="outlined" onClick={() => setPage(4)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Benefícios</Button>
                                 </div>
                                 {page == 1 ? (
                                 <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
@@ -97,15 +97,27 @@ export default function VacancyDetails() {
                                 <h1 className="font-semibold text-lg pt-5">Etapas do processo</h1>
 
                                 <div>
-                                <Stepper activeStep={activeStep} orientation="vertical">
-                                    {steps.map((step, index) => (
-                                    <Step key={step.label}>
-                                        <StepLabel>
-                                        <h1>{step.label}</h1>
-                                        </StepLabel>
-                                    </Step>
-                                    ))}
-                                </Stepper>
+                                    <Stepper activeStep={activeStep} orientation="vertical">
+                                        {steps.map((step, index) => (
+                                            <Step key={step.label}>
+                                            <StepLabel
+                                                StepIconProps={{
+                                                sx: {
+                                                    color: index === activeStep ? '#036D3C' : '#82d982', 
+                                                    '&.Mui-active': {
+                                                    color: '#036D3C',
+                                                    },
+                                                    '&.Mui-completed': {
+                                                    color: '#036D3C',
+                                                    },
+                                                },
+                                                }}
+                                            >
+                                                <h1>{step.label}</h1>
+                                            </StepLabel>
+                                            </Step>
+                                        ))}
+                                    </Stepper>
                                 </div>
                             </div>
                             
