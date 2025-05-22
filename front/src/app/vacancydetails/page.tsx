@@ -38,7 +38,7 @@ export default function VacancyDetails() {
     return (
         <>
             <HeaderLogged />
-            <div>
+            <div className="flex flex-col justify-between max- h-screen overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 p-10 md:px-20 gap-3 lg:gap-x-44">
                     <div>
                         <GoBack/>
@@ -59,10 +59,10 @@ export default function VacancyDetails() {
 
                             <div className="flex flex-col gap-5">
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                                    <Button variant="outlined" onClick={() => setPage(1)}>Descrição</Button>
-                                    <Button variant="outlined" onClick={() => setPage(2)}>Atribuições</Button>
-                                    <Button variant="outlined" onClick={() => setPage(3)}>Requisitos</Button>
-                                    <Button variant="outlined" onClick={() => setPage(4)}>Benefícios</Button>
+                                    <Button variant="outlined" onClick={() => setPage(1)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Descrição</Button>
+                                    <Button variant="outlined" onClick={() => setPage(2)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Atribuições</Button>
+                                    <Button variant="outlined" onClick={() => setPage(3)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Requisitos</Button>
+                                    <Button variant="outlined" onClick={() => setPage(4)} sx={{color: 'green', borderColor: 'green', '&:hover': {borderColor: 'darkgreen',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Benefícios</Button>
                                 </div>
                                 {page == 1 ? (
                                 <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
@@ -143,8 +143,8 @@ export default function VacancyDetails() {
                     </div>
                 </div>
 
+                <Footer className=""/>
             </div>
-            <Footer className=""/>
         </>
     );
 }
