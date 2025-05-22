@@ -1,14 +1,21 @@
+"use client";
+
 import Image from "next/image"
 //imports internos
 import back from '@/assets/back.png'
+import { Button } from "@mui/material"
+import { useRouter } from "next/navigation"
+
 
 export const GoBack = () => {
+    const router = useRouter();
+
     return(
         <>
-         <div className="flex flex-row gap-2 md:gap-4 items-center">
+        <Button onClick={router.back}>
             <Image src={back} alt="seta" className="scale-40 md:scale-50 object-contain"></Image>
             <p className=" text-[#909192] text-xs md:text-md">Voltar</p>
-        </div>
+        </Button>
         </>
     )
 }
