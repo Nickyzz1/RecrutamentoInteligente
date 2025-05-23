@@ -9,32 +9,43 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
 
-import { Box, Button, ButtonGroup, StepContent, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Divider, StepContent, Typography } from "@mui/material";
 import { useState } from "react";
 const VacancyDetails : React.FC = () => {
 
-    const steps = [
-        {
-            label :'Incrições',
-            startDate : '12/05/25',
-            endDate : '22/05/2025'
-        },
-        {
-            label :'Incrições',
-            startDate : '12/05/25',
-            endDate : '22/05/2025'
-        },
-        {
-            label :'Incrições',
-            startDate : '12/05/25',
-            endDate : '22/05/2025'
-        },
-        {
-            label :'Incrições',
-            startDate : '12/05/25',
-            endDate : '22/05/2025'
-        },
-    ]
+    const data = {
+
+        title : 'Desenvolvedor React Sênior',
+        creationDate: '05/02/2025',
+        description: 'Estamos em busca de um(a) Desenvolvedor(a) Front-end Sênior com expertise em React.js para atuar em projetos de alta complexidade, contribuindo para a construção de interfaces modernas, escaláveis e com foco em performance. Se você é apaixonado(a) por tecnologia, tem pensamento crítico, atenção aos detalhes e quer fazer parte de um time colaborativo, essa vaga é pra você!',
+        requisits: ['Ter experiência com React por mais de 4 anos', 'Ter formação superior em Ciencia da computação, Analise e desenvolvimento de sistemas, ou áreas afins', 'Possuir github atualizado'],
+        benefits:['Assistência médica','PLR','Plano odontológico','Vale mercado', 'Vale combustível'],
+        responsabilities:['Realizar versionamento de código', 'Desenvolver telas'],
+        steps : [
+            {
+                label :'Incrições',
+                startDate : '12/05/25',
+                endDate : '22/05/2025'
+            },
+            {
+                label :'Incrições',
+                startDate : '12/05/25',
+                endDate : '22/05/2025'
+            },
+            {
+                label :'Incrições',
+                startDate : '12/05/25',
+                endDate : '22/05/2025'
+            },
+            {
+                label :'Incrições',
+                startDate : '12/05/25',
+                endDate : '22/05/2025'
+            },
+        ]
+    }
+
+    
 
     const CustomStepIcon = (props : any) => {
         const { active, completed, className } = props;
@@ -77,7 +88,7 @@ const VacancyDetails : React.FC = () => {
                         <h1 className="text-xl font-semibold">
                             Desenvolvedor React Senior
                         </h1>
-                        <div className="flex flex-wrap ">
+                        <div className="flex flex-wrap gap-2">
                             <CorporateFareIcon/>
                             <p className='font-xs text-gray-600'>Darede à nuvem</p>
                             <AddLocationIcon/>
@@ -104,7 +115,7 @@ const VacancyDetails : React.FC = () => {
 
                     <div className="bg-[#efffef] flex gap-4 rounded-r-sm">
                         <div className="bg-[#60a860] w-2"></div>
-                        <p className="m-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo itaque quaerat iure nesciunt ex repudiandae alias, ab quas quae, eveniet quos sunt minus quo saepe, debitis cupiditate! Quo, voluptatibus ullam.</p>
+                        <p className="m-2">{data.description}</p>
                     </div>
                 </div>
                 {/* Etapas do  processo */}
@@ -115,7 +126,7 @@ const VacancyDetails : React.FC = () => {
                     <div className="flex flex-wrap  rounded-xl">
 
                     <Stepper activeStep={activeStep} orientation="vertical">
-                        {steps.map((step, index) => (
+                        {data.steps.map((step, index) => (
                             <Step key={index}>
                             <StepLabel
                                 StepIconComponent={CustomStepIcon}
@@ -138,6 +149,25 @@ const VacancyDetails : React.FC = () => {
 
                 </div>
                 {/*Informações da vaga */}
+                <div className="flex flex-wrap flex-col bg-white border-1 rounded-2xl border-gray-200 p-7 gap-9">
+                    <h1 className="text-xl font-semibold">Informações da vaga</h1>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="text-sm text-gray-500">Data de publicação</h2>
+                        <p>{data.creationDate}</p>
+                        <Divider/>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="text-sm text-gray-500">Local</h2>
+                        <p>Curitiba, PR</p>
+                        <Divider/>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="text-sm text-gray-500">Data de publicação</h2>
+                        <p>Darede à nuvem</p>
+                        <Divider/>
+                    </div>
+                   
+                </div>
 
             </div>
         </>
