@@ -8,125 +8,154 @@ import Link from "next/link";
 import { HeaderLogged } from "@/components/header2/page";
 import { ROUTES } from "@/constants/routes";
 import { GoBack } from "@/components/goBack/page";
-import { Button, Divider, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, Divider, Step, StepContent, StepLabel, Stepper, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
+import { Footer } from "@/components/footer/page";
 
 export default function VacancyDetails() {
-    const [alignment, setAlignment] = useState('web');
+    const [activeStep, setActiveStep] = useState(1);
+    const [page, setPage] = useState(1);
 
-    const handleChange = (
-      event: React.MouseEvent<HTMLElement>,
-      newAlignment: string,
-    ) => {
-      setAlignment(newAlignment);
-    };
+    const steps = [
+        {
+            label: "Inscrições",
+            date: "05/01 - 27/01"
+        },
+        {
+            label: "Avaliação de candidaturas",
+            date: "05/01 - 27/01"
+        },
+        {
+            label: "Dinâmica",
+            date: "05/01 - 27/01"
+        },
+        {
+            label: "Entrevista",
+            date: "05/01 - 27/01"
+        },
+    ]
+
     return (
         <>
             <HeaderLogged />
-            <div className="flex flex-col p-10 gap-3">
-                <div>
-                    <GoBack/>
-                        <div className="flex items-center justify-between w-full my-2">
-                            <div className="flex flex-col md:flex-row gap-3 md:items-center">
-                                <div className="flex flex-col">
-                                    <h1 className="text-xl font-semibold text-green-800">Desenvolvedor react senior</h1>
-                                    <p className="text-gray-400 text-sm">Darede à nuvem | Curitiba, PR</p>
-                                </div>
-                                <div className="bg-orange-400 p-2 rounded-2xl flex items-center justify-center">
-                                    <p className="text-white">Vaga ativa</p>
-                                </div>
-                            </div>
-                            <Button variant="contained" style={{backgroundColor: '#036D3C'}}>Candidatar-se</Button>
-                        </div>
-
-                        <div className="flex flex-col gap-5">
-                            <ToggleButtonGroup
-                                color="primary"
-                                value={alignment}
-                                exclusive
-                                onChange={handleChange}
-                                aria-label="Platform"
-                                >
-                                <ToggleButton value="descricao">Descrição</ToggleButton>
-                                <ToggleButton value="atribuicoes">Atribuições</ToggleButton>
-                                <ToggleButton value="requisitos">Requisitos</ToggleButton>
-                                <ToggleButton value="beneficios">Benefícios</ToggleButton>
-                            </ToggleButtonGroup>
-
-                            <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
-                                <h1 className="font-semibold text-lg">🐱‍🐉 Descrição da Vaga</h1>
-                                <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
-                            </div>
-                        <div>
-
-                            <Divider />
-
-                            <h1 className="font-semibold text-lg">Etapas do processo</h1>
-
-                            <div>
-                                <div>
-                                    <div>
-                                        <div>
-                                            <div></div>
-                                            <p>Inscrições</p>
-                                        </div>
-                                        <p>05/01 - 27/01</p>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <div></div>
-                                            <p>Avaliação de candidaturas</p>
-                                        </div>
-                                        <p>05/01 - 27/01</p>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <div></div>
-                                            <p>Dinâmica</p>
-                                        </div>
-                                        <p>05/01 - 27/01</p>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <div></div>
-                                            <p>Entrevista</p>
-                                        </div>
-                                        <p>05/01 - 27/01</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div>
-                    <Link href={ROUTES.sendcandidature}>Candidatar-se</Link>
+            <div className="flex flex-col justify-between max- h-screen overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-2 p-10 md:px-20 gap-3 lg:gap-x-44">
                     <div>
-                        <p>Informações da vaga</p>
-                        <div>
-                            <p>Data de publicação</p>
-                            <p>15 de janeiro de 2023</p>
-                        </div>
-                        <div>
-                            <p>Local</p>
-                            <p>São Paulo, SP</p>
-                        </div>
-                        <div>
-                            <p>Empresa</p>
-                            <p>Darede à núvem</p>
-                        </div>
-                        <div>
-                            <p>Habilidades relevantes</p>
+                        <GoBack/>
+                            <div className="flex items-center justify-between w-full my-2">
+                                <div className="flex flex-col gap-3 md:items-center">
+                                    <div className="flex flex-row gap-5">
+                                        <div className="flex flex-col">
+                                            <h1 className="text-xl font-semibold text-green-800">Desenvolvedor react senior</h1>
+                                            <p className="text-gray-400 text-sm">Darede à nuvem | Curitiba, PR</p>
+                                        </div>
+                                        <p className="text-white bg-orange-400 px-3 flex items-center text-center justify-center rounded-3xl md:rounded-full">Vaga ativa</p>
+                                    </div>
+                                    <div className="flex gap-2 md:justify-between w-full">
+                                        {/* <Button variant="contained" style={{backgroundColor: '#036D3C'}} className="hidden md:flex">Candidatar-se</Button> */}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-5">
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+                                    <Button variant="outlined" onClick={() => setPage(1)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Descrição</Button>
+                                    <Button variant="outlined" onClick={() => setPage(2)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Atribuições</Button>
+                                    <Button variant="outlined" onClick={() => setPage(3)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Requisitos</Button>
+                                    <Button variant="outlined" onClick={() => setPage(4)} sx={{color: '#036D3C', borderColor: '#036D3C', '&:hover': {borderColor: '#036D3C',  backgroundColor: 'rgba(0,125,0,0.1)', },'&:active': {borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', },}}>Benefícios</Button>
+                                </div>
+                                {page == 1 ? (
+                                <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
+                                    <h1 className="font-semibold text-lg">🐱‍🐉 Descrição da Vaga</h1>
+                                    <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
+                                </div>
+                                ) : page == 2 ? (
+                                    <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
+                                        <h1 className="font-semibold text-lg">🐱‍🐉 Atribuições da Vaga</h1>
+                                        <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
+                                    </div>
+                                ) : page == 3 ? (
+                                    <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
+                                        <h1 className="font-semibold text-lg">🐱‍🐉 Requisitos da Vaga</h1>
+                                        <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
+                                    </div>
+                                ) : page == 4 ? (
+                                    <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
+                                        <h1 className="font-semibold text-lg">🐱‍🐉 Benefícios</h1>
+                                        <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3">
+                                        <h1 className="font-semibold text-lg">🐱‍🐉 Benefícios</h1>
+                                        <p>muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto muito texto lallalalal muito texto alalla eba eba ai ai ai muito tewxto</p>
+                                    </div>
+                                )}
                             <div>
-                                <p>Git</p>
-                                <p>Git</p>
-                                <p>Git</p>
-                                <p>Git</p>
+
+                                <Divider />
+
+                                <h1 className="font-semibold text-lg pt-5">Etapas do processo</h1>
+
+                                <div>
+                                    <Stepper activeStep={activeStep} orientation="vertical">
+                                        {steps.map((step, index) => (
+                                            <Step key={step.label}>
+                                            <StepLabel
+                                                StepIconProps={{
+                                                sx: {
+                                                    color: index === activeStep ? '#036D3C' : '#82d982', 
+                                                    '&.Mui-active': {
+                                                    color: '#036D3C',
+                                                    },
+                                                    '&.Mui-completed': {
+                                                    color: '#036D3C',
+                                                    },
+                                                },
+                                                }}
+                                            >
+                                                <h1>{step.label}</h1>
+                                            </StepLabel>
+                                            </Step>
+                                        ))}
+                                    </Stepper>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                        
+                    <div className="flex gap-6 itens-center flex-col mt-10">
+                        <Button variant="contained" style={{backgroundColor: '#036D3C'}} className="hidden md:flex">Candidatar-se</Button>
+                        <div className="flex flex-col border border-gray-400 bg-white rounded-2xl p-3 gap-3 self-center w-full">
+                            <div>
+                                <h1 className="font-semibold text-green-800 text-lg">Informações da vaga</h1>
+                                <div className="flex gap-1 flex-col">
+                                    <h2 className="text-gray-500">Data de publicação:</h2>
+                                    <p>15 de janeiro de 2023</p>
+                                </div>
+                                <div className="flex gap-1 flex-col">
+                                    <h2 className="text-gray-500">Local:</h2>
+                                    <p>São Paulo-SP</p>
+                                </div>
+                                <div className="flex gap-1 flex-col">
+                                    <h2 className="text-gray-500">Empresa:</h2>
+                                    <p>Darede à núvem</p>
+                                </div>
+                                <div className="flex gap-1 flex-col">
+                                    <h2 className="text-gray-500">Habilidades relevantes:</h2>
+                                    <div className="flex gap-2 flex-wrap">
+                                        <p className="outline-green-900 outline-1 py-0.5 px-6 rounded-full text-gray-800 bg-green-100">Git</p>
+                                        <p className="outline-green-900 outline-1 py-0.5 px-6 rounded-full text-gray-800 bg-green-100">Git</p>
+                                        <p className="outline-green-900 outline-1 py-0.5 px-6 rounded-full text-gray-800 bg-green-100">Git</p>
+                                        <p className="outline-green-900 outline-1 py-0.5 px-6 rounded-full text-gray-800 bg-green-100">Git</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <Footer className=""/>
             </div>
         </>
     );
