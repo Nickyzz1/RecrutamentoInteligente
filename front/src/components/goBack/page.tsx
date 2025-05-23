@@ -12,7 +12,7 @@ export const GoBack = () => {
 
     return(
         <>
-        <Button onClick={router.back} sx={{ padding: 0 }}>
+        <Button onClick={router.back} sx={{ padding: 4}}>
             <Image src={back} alt="seta" className="scale-40 md:scale-50 object-contain"></Image>
             <p className=" text-[#909192] text-xs md:text-md">Voltar</p>
         </Button>
