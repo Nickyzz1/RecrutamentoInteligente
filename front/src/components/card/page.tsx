@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
 import { ROUTES } from "@/constants/routes"
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
 
@@ -18,7 +17,6 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = ({ title, status, adress, description, date, skills }) => {
-
 
     return (
         <>
